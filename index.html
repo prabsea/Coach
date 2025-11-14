@@ -1,0 +1,2991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>UW Pre-Med College Coach | Seattle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Teen-friendly fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1021;
+      --panel: #0b1020;
+      --panel-soft: #0b1020f2;
+      --accent: #38bdf8;
+      --accent-soft: #38bdf822;
+      --accent-2: #e879f9;
+      --accent-3: #4ade80;
+      --accent-4: #f97373;
+      --text: #f9fafb;
+      --muted: #c7d2fe;
+      --border-soft: #1f2937;
+      --danger: #fb7185;
+      --shadow-soft: 0 22px 50px rgba(15,23,42,0.85);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --transition-fast: 0.18s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-size: 15px;
+      line-height: 1.5;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        sans-serif;
+      background:
+        radial-gradient(circle at top left, #4f46e5 0, transparent 50%),
+        radial-gradient(circle at top right, #ec4899 0, transparent 55%),
+        radial-gradient(circle at bottom, #0ea5e9 0, #020617 60%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .app-shell {
+      max-width: 1200px;
+      width: 100%;
+      background: linear-gradient(145deg, #020617ee, #020617f8);
+      border-radius: 28px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid #1f2937;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .app-shell::before {
+      content: "";
+      position: absolute;
+      inset: -120px;
+      background:
+        radial-gradient(circle at 10% 0%, #38bdf820, transparent 55%),
+        radial-gradient(circle at 90% 10%, #e879f920, transparent 55%),
+        radial-gradient(circle at 50% 120%, #22c55e22, transparent 55%);
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    header {
+      padding: 16px 22px 6px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      border-bottom: 1px solid var(--border-soft);
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        135deg,
+        rgba(15,23,42,0.96),
+        rgba(15,23,42,0.9)
+      );
+    }
+
+    .logo-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 18px;
+      background: conic-gradient(from 210deg, #38bdf8, #a855f7, #f97373, #38bdf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 22px;
+      box-shadow: 0 0 0 1px #0ea5e9, 0 18px 38px rgba(56,189,248,0.5);
+    }
+
+    .heading-block {
+      flex: 1;
+    }
+
+    .heading-block h1 {
+      font-family: "Poppins", system-ui, sans-serif;
+      font-size: 21px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge-pill {
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .heading-sub {
+      font-size: 13px;
+      color: #e5e7eb;
+      margin-top: 4px;
+    }
+
+    .heading-sub strong {
+      color: #a5b4fc;
+    }
+
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .meta-chip {
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid var(--border-soft);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .meta-chip-toggle {
+      cursor: pointer;
+      transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .meta-chip-toggle.active {
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #022c22;
+      border-color: transparent;
+      box-shadow: 0 10px 25px rgba(34,197,94,0.65);
+      transform: translateY(-1px);
+    }
+
+    .meta-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px #38bdf822;
+    }
+
+    .meta-dot.purple {
+      background: var(--accent-2);
+      box-shadow: 0 0 0 4px #e879f922;
+    }
+
+    .meta-dot.green {
+      background: var(--accent-3);
+      box-shadow: 0 0 0 4px #22c55e22;
+    }
+
+    .nav-tabs {
+      padding: 0 18px 10px 18px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-tab {
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #cbd5f5;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .nav-tab span.icon {
+      font-size: 14px;
+    }
+
+    .nav-tab:hover {
+      border-color: #312e81;
+      background: rgba(15,23,42,0.85);
+      color: #e5e7eb;
+      transform: translateY(-1px);
+    }
+
+    .nav-tab.active {
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 10px 28px rgba(129,140,248,0.7);
+    }
+
+    main {
+      padding: 4px 18px 18px 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 3.3fr) minmax(0, 2.2fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+    }
+
+    .panel {
+      background: var(--panel-soft);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      padding: 14px 14px 12px 14px;
+      box-shadow: 0 16px 38px rgba(15,23,42,0.85);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .panel-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .panel-title span:first-child {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #a5b4fc;
+    }
+
+    .panel-pill {
+      font-size: 13px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.85);
+      border: 1px solid #1f2937;
+      color: var(--muted);
+    }
+
+    .panel-body {
+      font-size: 13px;
+    }
+
+    .view {
+      display: none;
+    }
+    .view.active {
+      display: block;
+    }
+
+    .roadmap-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 430px;
+      overflow-y: auto;
+      padding-right: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: #4b5563 #020617;
+    }
+
+    .roadmap-year {
+      border-radius: var(--radius-lg);
+      border: 1px solid #1f2937;
+      padding: 10px;
+      background: radial-gradient(circle at 0 0, #020617, #020617f5);
+      position: relative;
+    }
+
+    .roadmap-year::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, #6366f122, transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .roadmap-year-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+      gap: 8px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .roadmap-year-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #c7d2fe;
+    }
+
+    .roadmap-meta {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .roadmap-progress-bar {
+      width: 110px;
+      height: 5px;
+      border-radius: 999px;
+      background: #020617;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .roadmap-progress-bar span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #bef264);
+      width: 0%;
+      transition: width 0.25s ease-out;
+    }
+
+    .quarter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 900px) {
+      .quarter-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .quarter-card {
+      border-radius: 14px;
+      border: 1px solid #1f2937;
+      background: linear-gradient(145deg, #020617, #020617f5);
+      padding: 8px 8px 6px 8px;
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quarter-label {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #a5b4fc;
+      font-size: 14px;
+    }
+
+    .quarter-focus {
+      color: #e5e7eb;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .quarter-items {
+      margin-top: 3px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .roadmap-task {
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .roadmap-task input[type="checkbox"] {
+      margin-top: 2px;
+      accent-color: #38bdf8;
+      cursor: pointer;
+    }
+
+    .roadmap-task label {
+      font-size: 13px;
+      color: #cbd5f5;
+      cursor: pointer;
+    }
+
+    .pill-tag {
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: rgba(15,23,42,0.9);
+      color: #f9a8d4;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 3px;
+      align-self: flex-start;
+    }
+
+    .filters-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 13px;
+      min-width: 120px;
+      flex: 1;
+    }
+
+    .field label {
+      color: var(--muted);
+    }
+
+    .field input[type="text"],
+    .field select,
+    .field textarea {
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      padding: 6px 10px;
+      background: rgba(15,23,42,0.9);
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color var(--transition-fast),
+        box-shadow var(--transition-fast), background var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .field textarea {
+      border-radius: 12px;
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .field input[type="text"]:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: #e879f9;
+      box-shadow: 0 0 0 1px #e879f944, 0 0 0 8px #e879f917;
+      background: #020617;
+      transform: translateY(-0.5px);
+    }
+
+    .toggle-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      padding: 6px 9px;
+      cursor: pointer;
+      color: var(--muted);
+      background: rgba(15,23,42,0.85);
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        color var(--transition-fast), transform var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .toggle-chip input {
+      display: none;
+    }
+
+    .toggle-chip::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #111827;
+      border: 1px solid #4b5563;
+      box-shadow: inset 0 0 0 1px #020617;
+    }
+
+    .toggle-chip.active {
+      background: linear-gradient(135deg, #e879f9, #fb7185);
+      border-color: transparent;
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    .toggle-chip.active::before {
+      background: white;
+      border-color: transparent;
+      box-shadow: 0 0 0 3px #f9a8d480;
+    }
+
+    .activities-list {
+      margin-top: 4px;
+      max-height: 230px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-right: 2px;
+      scrollbar-width: thin;
+      scrollbar-color: #4b5563 #020617;
+    }
+
+    .activity-card {
+      border-radius: 16px;
+      border: 1px solid #1f2937;
+      background: radial-gradient(circle at 0 0, #020617, #020617ec);
+      padding: 8px;
+      font-size: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+      gap: 6px;
+      transition: border-color var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), background var(--transition-fast);
+      position: relative;
+    }
+
+    .peds-highlight {
+      border-color: #fb7185;
+      box-shadow: 0 0 0 1px #fb718555, 0 12px 26px rgba(248,113,113,0.4);
+    }
+
+    @media (max-width: 900px) {
+      .activity-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .activity-main {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .activity-title {
+      font-weight: 600;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+
+    .activity-type {
+      font-size: 14px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: rgba(15,23,42,0.9);
+      color: #bfdbfe;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .activity-body {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .activity-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+      font-size: 14px;
+    }
+
+    .activity-tag {
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: rgba(15,23,42,0.9);
+      color: #a5b4fc;
+    }
+
+    .activity-tag.green {
+      color: #bbf7d0;
+    }
+
+    .activity-tag.pink {
+      color: #f9a8d4;
+    }
+
+    .activity-side {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .activity-year {
+      font-size: 14px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px dashed #374151;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 13px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+      transition: background var(--transition-fast), box-shadow var(--transition-fast),
+        transform var(--transition-fast), border-color var(--transition-fast),
+        color var(--transition-fast);
+      background: rgba(15,23,42,0.95);
+      color: #e5e7eb;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
+      color: white;
+      box-shadow: 0 10px 25px rgba(129,140,248,0.7);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 35px rgba(129,140,248,0.85);
+    }
+
+    .btn-ghost {
+      border-color: #1f2937;
+    }
+
+    .btn-ghost:hover {
+      border-color: #38bdf8;
+      color: #e5e7eb;
+      background: #020617;
+    }
+
+    .btn-link {
+      background: transparent;
+      border-radius: 999px;
+      border: 1px solid #312e81;
+      font-size: 14px;
+      padding: 3px 8px;
+    }
+
+    .btn-link:hover {
+      background: #111827;
+      border-color: #6366f1;
+      transform: translateY(-1px);
+    }
+
+    .btn-sm {
+      padding: 3px 8px;
+      font-size: 14px;
+    }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .chip-outline {
+      font-size: 14px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px dashed #374151;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .chip-outline strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .readiness-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .readiness-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .readiness-card {
+      border-radius: 16px;
+      border: 1px solid #1f2937;
+      padding: 8px;
+      background: radial-gradient(circle at 0 0, #020617, #020617f5);
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .readiness-title {
+      font-weight: 600;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .readiness-target {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .readiness-bar {
+      width: 100%;
+      height: 5px;
+      border-radius: 999px;
+      background: #020617;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .readiness-bar span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #bef264);
+      width: 0%;
+      transition: width 0.25s ease-out;
+    }
+
+    .readiness-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .readiness-row input {
+      width: 70px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      padding: 4px 6px;
+      background: #020617;
+      color: var(--text);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .pill-status {
+      font-size: 14px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid #1f2937;
+      color: #facc15;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .pill-status.on-track {
+      color: #4ade80;
+    }
+
+    .pill-status.behind {
+      color: #fb7185;
+    }
+
+    .myplan-list {
+      max-height: 200px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: #4b5563 #020617;
+    }
+
+    .myplan-item {
+      border-radius: 14px;
+      border: 1px solid #1f2937;
+      padding: 7px;
+      background: #020617f2;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .myplan-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .myplan-title {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .myplan-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .myplan-tags span {
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      color: #a5b4fc;
+    }
+
+    .myplan-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .notes-area {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      background: #020617;
+      min-height: 100px;
+      padding: 8px;
+      color: var(--text);
+      font-size: 14px;
+      resize: vertical;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .label-mini {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .early-admit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .early-item {
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      padding: 6px;
+      background: #020617f5;
+    }
+
+    .early-item strong {
+      color: #e5e7eb;
+    }
+
+    .tiny {
+      font-size: 14px;
+    }
+
+    .empty-state {
+      border-radius: 16px;
+      border: 1px dashed #374151;
+      padding: 10px 9px;
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15,23,42,0.7);
+    }
+
+    .badge-counter {
+      font-size: 14px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: rgba(15,23,42,0.9);
+    }
+
+    .activity-card:hover {
+      border-color: #38bdf8;
+      background: radial-gradient(circle at 0 0, #0b1120, #020617);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(37,99,235,0.5);
+    }
+
+    .essay-list {
+      max-height: 230px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: #4b5563 #020617;
+      margin-top: 6px;
+    }
+
+    .essay-card {
+      border-radius: 14px;
+      border: 1px solid #1f2937;
+      padding: 7px;
+      background: #020617f2;
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .essay-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .essay-title {
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .essay-category-pill {
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: rgba(15,23,42,0.9);
+      color: #a5b4fc;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .essay-body-preview {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .essay-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .essay-tags span {
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      color: #a5b4fc;
+    }
+
+    a.activity-link {
+      color: #bfdbfe;
+      text-decoration: none;
+    }
+    a.activity-link:hover {
+      text-decoration: underline;
+    }
+
+  
+    button:focus-visible,
+    .nav-tab:focus-visible,
+    .meta-chip-toggle:focus-visible,
+    .btn-link:focus-visible,
+    .toggle-chip:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    a:focus-visible {
+      outline: 2px solid #f97316;
+      outline-offset: 3px;
+    }
+
+    .shortlist-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 14px;
+      margin-bottom: 4px;
+      max-height: 200px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #4b5563 #020617;
+    }
+    .shortlist-card {
+      border-radius: 16px;
+      border: 1px solid #1f2937;
+      padding: 7px;
+      background: #020617f2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .shortlist-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .shortlist-title {
+      font-weight: 600;
+      color: var(--text);
+    }
+    .shortlist-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+    .shortlist-tags span {
+      font-size: 13px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      color: #f9a8d4;
+    }
+    .shortlist-meta {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+
+    body.text-size-s {
+      font-size: 14px;
+    }
+    body.text-size-m {
+      font-size: 16px;
+    }
+    body.text-size-l {
+      font-size: 18px;
+    }
+
+    .meta-chip-size {
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: var(--muted);
+      padding: 2px 6px;
+      font-size: 13px;
+      cursor: pointer;
+      margin-left: 4px;
+      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+    .meta-chip-size.active {
+      background: #f9fafb;
+      color: #020617;
+      border-color: #f9fafb;
+      transform: translateY(-1px);
+    }
+
+    body.high-contrast {
+      background: #020617;
+    }
+    body.high-contrast .app-shell {
+      background: #020617;
+      border-color: #111827;
+    }
+    body.high-contrast header {
+      background: #020617;
+    }
+    body.high-contrast .panel {
+      background: #020617;
+    }
+    body.high-contrast .panel,
+    body.high-contrast .quarter-card,
+    body.high-contrast .activity-card,
+    body.high-contrast .myplan-item,
+    body.high-contrast .readiness-card,
+    body.high-contrast .essay-card,
+    body.high-contrast .shortlist-card,
+    body.high-contrast .early-item {
+      border-color: #4b5563;
+    }
+    body.high-contrast .chip-outline,
+    body.high-contrast .meta-chip,
+    body.high-contrast .pill-tag {
+      background: #020617;
+      border-color: #4b5563;
+    }
+    body.high-contrast .label-mini,
+    body.high-contrast .muted {
+      color: #e5e7eb;
+    }
+    body.high-contrast .activity-card:hover {
+      box-shadow: 0 0 0 1px #38bdf8;
+    }
+
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <header>
+    <div class="logo-badge">M</div>
+    <div class="heading-block">
+      <h1>
+        Pre-Med College Coach
+        <span class="badge-pill">UW • Seattle • First-Year</span>
+      </h1>
+      <p class="heading-sub">
+        A single place for a UW Husky to build a pediatrics-flavored pre-med journey — classes, clubs, hours, essays, and trends in modern medicine.
+      </p>
+    </div>
+    <div class="header-meta">
+      <div class="meta-chip">
+        <span class="meta-dot purple"></span>
+        Interest: <strong>Pediatrics</strong>
+      </div>
+      <div class="meta-chip">
+        <span class="meta-dot"></span>
+        Roadmap: <strong>4-Year Plan</strong>
+      </div>
+      <div class="meta-chip">
+        <span>Text size:</span>
+        <button type="button" class="meta-chip-size" data-text-size-btn="s">S</button>
+        <button type="button" class="meta-chip-size" data-text-size-btn="m">M</button>
+        <button type="button" class="meta-chip-size" data-text-size-btn="l">L</button>
+      </div>
+      <button class="meta-chip meta-chip-toggle" id="highContrastToggle">
+        <span class="meta-dot"></span>
+        High contrast: <strong>Off</strong>
+      </button>
+      <button class="meta-chip meta-chip-toggle" id="pedsTrackToggle">
+        <span class="meta-dot green"></span>
+        Pediatrics Super-Track: <strong>Off</strong>
+      </button>
+    </div>
+  </header>
+
+  <nav class="nav-tabs" id="navTabs">
+    <button class="nav-tab active" data-view="view-roadmap">
+      <span class="icon">📅</span> Roadmap
+    </button>
+    <button class="nav-tab" data-view="view-activities">
+      <span class="icon">🧪</span> Activities Explorer
+    </button>
+    <button class="nav-tab" data-view="view-myplan">
+      <span class="icon">⭐</span> My Plan
+    </button>
+    <button class="nav-tab" data-view="view-essays">
+      <span class="icon">💡</span> Essay Idea Bank
+    </button>
+    <button class="nav-tab" data-view="view-readiness">
+      <span class="icon">✅</span> Application Readiness
+    </button>
+    <button class="nav-tab" data-view="view-notes">
+      <span class="icon">📝</span> Notes & Ideas
+    </button>
+  </nav>
+
+  <main>
+    <!-- LEFT: changing views -->
+    <!-- Roadmap -->
+    <section class="panel view active" id="view-roadmap">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>4-Year Pre-Med Roadmap</span>
+          <span class="panel-pill">UW quarters • pediatrics-friendly</span>
+        </div>
+        <div class="badge-counter" id="roadmapSummary"></div>
+      </div>
+      <div class="panel-body">
+        <div class="roadmap-timeline" id="roadmapTimeline">
+          <!-- Year 1 -->
+          <div class="roadmap-year" data-year="1">
+            <div class="roadmap-year-header">
+              <div>
+                <div class="roadmap-year-title">Year 1 • Foundations @ UW Seattle</div>
+                <div class="roadmap-meta">
+                  <span>GPA priority • Adjust to college • Explore UW RSOs</span>
+                </div>
+              </div>
+              <div class="roadmap-meta">
+                <span class="roadmap-progress-bar">
+                  <span data-year-progress="1"></span>
+                </span>
+                <span class="tiny">Progress</span>
+              </div>
+            </div>
+            <div class="quarter-grid">
+              <!-- Autumn -->
+              <div class="quarter-card">
+                <div class="quarter-label">Autumn</div>
+                <div class="quarter-focus">Set your foundation</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y1-autumn-meet-advisor">
+                    <label>Meet with a UW pre-health advisor & map out likely pre-reqs (Chem, Bio, Math, English, Psych/Soc).</label>
+                  </div>
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y1-autumn-rso-fair">
+                    <label>Open HuskyLink and bookmark 5–10 health-related clubs (pre-med, global health, pediatrics / child health).</label>
+                  </div>
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y1-autumn-explore-volunteering">
+                    <label>Use the activities links to find 5–8 clinical / hospital volunteering options (pediatrics or children’s hospital) and apply.</label>
+                  </div>
+                  <span class="pill-tag">Mindset: Curiosity & consistency</span>
+                </div>
+              </div>
+              <!-- Winter -->
+              <div class="quarter-card">
+                <div class="quarter-label">Winter</div>
+                <div class="quarter-focus">Start real exposure</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y1-winter-start-clinical">
+                    <label>Begin a weekly clinical experience (hospital volunteer, clinic helper, patient escort near UW/Seattle).</label>
+                  </div>
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y1-winter-shadow-1">
+                    <label>Shadow a physician for at least 8–10 hours total (ideally pediatrics or family medicine).</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y1-winter-gpa">
+                    <label>Lock in strong study systems; aim for ≥3.7+ term GPA.</label>
+                  </div>
+                  <span class="pill-tag">Clinical hours: Start log</span>
+                </div>
+              </div>
+              <!-- Spring -->
+              <div class="quarter-card">
+                <div class="quarter-label">Spring</div>
+                <div class="quarter-focus">Build a consistent portfolio</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y1-spring-clinical-consistent">
+                    <label>Maintain 2–3 hrs/week clinical role; document reflections after each shift.</label>
+                  </div>
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y1-spring-community">
+                    <label>Start a non-clinical service role (children, tutoring, underserved communities around Seattle).</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y1-spring-research-explore">
+                    <label>Identify 3–5 labs or pediatric / child-health research opportunities and send inquiry emails.</label>
+                  </div>
+                  <span class="pill-tag">Narrative: “Why medicine? Why kids?”</span>
+                </div>
+              </div>
+              <!-- Summer -->
+              <div class="quarter-card">
+                <div class="quarter-label">Summer</div>
+                <div class="quarter-focus">Deep dive in one lane</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y1-summer-clinical-intensive">
+                    <label>Secure 1 intensive summer experience (hospital volunteering, scribing, children’s camp, EMT course).</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y1-summer-early-assurance">
+                    <label>Read about early assurance / BS-MD / special pathway programs and note eligibility timelines.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y1-summer-reflection">
+                    <label>Write a 1-page reflection on Year 1: what energizes you most about medicine?</label>
+                  </div>
+                  <span class="pill-tag">Summer = growth spurt</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Year 2 -->
+          <div class="roadmap-year" data-year="2">
+            <div class="roadmap-year-header">
+              <div>
+                <div class="roadmap-year-title">Year 2 • Depth & Responsibility</div>
+                <div class="roadmap-meta">
+                  <span>Increase hours • Take on responsibility • Start research</span>
+                </div>
+              </div>
+              <div class="roadmap-meta">
+                <span class="roadmap-progress-bar">
+                  <span data-year-progress="2"></span>
+                </span>
+                <span class="tiny">Progress</span>
+              </div>
+            </div>
+            <div class="quarter-grid">
+              <div class="quarter-card">
+                <div class="quarter-label">Autumn</div>
+                <div class="quarter-focus">Level-up roles</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y2-autumn-clinical-continue">
+                    <label>Continue clinical volunteering or scribing; aim for 3–4 hrs/week, ideally in peds/primary care.</label>
+                  </div>
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y2-autumn-research-start">
+                    <label>Secure a research assistant position or deepen outreach to labs (UW Medicine, public health, pediatrics).</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y2-autumn-club-lead">
+                    <label>Take on a small leadership role in a UW pre-med / service / pediatrics-related RSO.</label>
+                  </div>
+                  <span class="pill-tag">Theme: Responsibility</span>
+                </div>
+              </div>
+              <div class="quarter-card">
+                <div class="quarter-label">Winter</div>
+                <div class="quarter-focus">Expand exposure</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y2-winter-shadow-diverse">
+                    <label>Shadow different specialties (peds, family, IM, maybe ED); reach ~25–30 total hrs shadowing by year-end.</label>
+                  </div>
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y2-winter-service-consistent">
+                    <label>Maintain consistent non-clinical role focused on children or underserved communities.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y2-winter-gpa">
+                    <label>Hold GPA ≥3.7; shore up any weaker science courses via office hours / tutoring.</label>
+                  </div>
+                  <span class="pill-tag">Clinical + service balance</span>
+                </div>
+              </div>
+              <div class="quarter-card">
+                <div class="quarter-label">Spring</div>
+                <div class="quarter-focus">Awards & distinction</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y2-spring-presentation">
+                    <label>Present a poster, mini-project, or research summary (even within a lab or class).</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y2-spring-leadership">
+                    <label>Move into or plan for a major leadership role for Year 3 in one key org.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y2-spring-early-assurance-check">
+                    <label>Check eligibility windows for early assurance / special pathway programs; note GPA/course requirements.</label>
+                  </div>
+                  <span class="pill-tag">Theme: “Impact” story</span>
+                </div>
+              </div>
+              <div class="quarter-card">
+                <div class="quarter-label">Summer</div>
+                <div class="quarter-focus">Big summer move</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y2-summer-intensive">
+                    <label>Pursue a major experience: full-time research, scribing, global health, summer program, or children’s hospital role.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y2-summer-reflect">
+                    <label>Write 2–3 short reflections that could become med-school personal statement seeds.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y2-summer-prereqs">
+                    <label>Ensure core pre-reqs (Chem, Bio, Physics, Psych/Soc, English) are on track for MCAT timing.</label>
+                  </div>
+                  <span class="pill-tag">Summer = differentiation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Year 3 -->
+          <div class="roadmap-year" data-year="3">
+            <div class="roadmap-year-header">
+              <div>
+                <div class="roadmap-year-title">Year 3 • MCAT & Application Core</div>
+                <div class="roadmap-meta">
+                  <span>Peak ECs • MCAT prep • Draft applications</span>
+                </div>
+              </div>
+              <div class="roadmap-meta">
+                <span class="roadmap-progress-bar">
+                  <span data-year-progress="3"></span>
+                </span>
+                <span class="tiny">Progress</span>
+              </div>
+            </div>
+            <div class="quarter-grid">
+              <div class="quarter-card">
+                <div class="quarter-label">Autumn</div>
+                <div class="quarter-focus">Lock in your story</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y3-autumn-leadership-peak">
+                    <label>Hold a major leadership role (club officer, coordinator, project lead) with real responsibility.</label>
+                  </div>
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y3-autumn-research-deepen">
+                    <label>Deepen research: co-author a poster, abstract, or paper — pediatrics / child health if possible.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y3-autumn-mcat-plan">
+                    <label>Create MCAT study plan (6–9 months out). Choose test window & register early.</label>
+                  </div>
+                  <span class="pill-tag">Theme: Leadership & impact</span>
+                </div>
+              </div>
+              <div class="quarter-card">
+                <div class="quarter-label">Winter</div>
+                <div class="quarter-focus">MCAT grind</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y3-winter-mcat-start">
+                    <label>Begin structured MCAT prep (content review + practice questions each week).</label>
+                  </div>
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y3-winter-letters">
+                    <label>Ask 3–5 potential letter writers, including someone who has seen you with kids/families if possible.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y3-winter-app-outline">
+                    <label>Outline personal statement and activity descriptions; draft bullet points.</label>
+                  </div>
+                  <span class="pill-tag">MCAT + letters</span>
+                </div>
+              </div>
+              <div class="quarter-card">
+                <div class="quarter-label">Spring</div>
+                <div class="quarter-focus">Application ready</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y3-spring-mcat-take">
+                    <label>Take MCAT (or set for early summer) with a competitive score for strong med schools.</label>
+                  </div>
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y3-spring-ps-polish">
+                    <label>Polish personal statement, highlighting pediatrics/child health themes if they fit your story.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y3-spring-school-list">
+                    <label>Finalize school list including mission-fit programs (primary care, pediatrics, child health focus).</label>
+                  </div>
+                  <span class="pill-tag">Apps mostly done by June</span>
+                </div>
+              </div>
+              <div class="quarter-card">
+                <div class="quarter-label">Summer</div>
+                <div class="quarter-focus">Apply early</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y3-summer-submit-primary">
+                    <label>Submit primary applications as early as they open (June for AMCAS / AACOMAS).</label>
+                  </div>
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y3-summer-secondaries">
+                    <label>Pre-write and rapidly turn around secondary essays — especially “Why medicine?” and “Why pediatrics?” prompts.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y3-summer-interview-prep">
+                    <label>Begin interview prep (MMI practice, traditional interviews, ethical scenarios, pediatrics-related cases).</label>
+                  </div>
+                  <span class="pill-tag">Early & polished</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Year 4 -->
+          <div class="roadmap-year" data-year="4">
+            <div class="roadmap-year-header">
+              <div>
+                <div class="roadmap-year-title">Year 4 • Interviews & Finish Strong</div>
+                <div class="roadmap-meta">
+                  <span>Interviews • Updates • Keep momentum</span>
+                </div>
+              </div>
+              <div class="roadmap-meta">
+                <span class="roadmap-progress-bar">
+                  <span data-year-progress="4"></span>
+                </span>
+                <span class="tiny">Progress</span>
+              </div>
+            </div>
+            <div class="quarter-grid">
+              <div class="quarter-card">
+                <div class="quarter-label">Autumn</div>
+                <div class="quarter-focus">Interview season</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y4-autumn-interviews">
+                    <label>Attend interviews; be ready to explain why you’re drawn to kids/families and how your experiences show that.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y4-autumn-updates">
+                    <label>Send update letters if appropriate (new leadership roles, publications, awards).</label>
+                  </div>
+                  <div class="roadmap-task" data-peds="true">
+                    <input type="checkbox" data-task-id="y4-autumn-continue-service">
+                    <label>Maintain at least one clinical and one non-clinical role, ideally involving kids or underserved communities.</label>
+                  </div>
+                  <span class="pill-tag">Theme: Professionalism</span>
+                </div>
+              </div>
+              <div class="quarter-card">
+                <div class="quarter-label">Winter</div>
+                <div class="quarter-focus">Decisions & gratitude</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y4-winter-thank-yous">
+                    <label>Thank letter writers, mentors, and supervisors; keep relationships strong.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y4-winter-financial">
+                    <label>Review financial aid, scholarships, and cost of attendance for each school.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y4-winter-backup">
+                    <label>If needed, draft re-application strategy (only if cycle outcomes are weaker than expected).</label>
+                  </div>
+                  <span class="pill-tag">Reflect & plan</span>
+                </div>
+              </div>
+              <div class="quarter-card">
+                <div class="quarter-label">Spring</div>
+                <div class="quarter-focus">Finish as a leader</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y4-spring-pass-torch">
+                    <label>Transition leadership roles to younger students; build continuity for your projects.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y4-spring-celebrate">
+                    <label>Celebrate milestones; capture your story in a “med school journey” doc or video.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y4-spring-log-archive">
+                    <label>Export your hours logs, reflections, and resume for future reference.</label>
+                  </div>
+                  <span class="pill-tag">Legacy & closure</span>
+                </div>
+              </div>
+              <div class="quarter-card">
+                <div class="quarter-label">Summer</div>
+                <div class="quarter-focus">Pre-matriculation</div>
+                <div class="quarter-items">
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y4-summer-prep">
+                    <label>Complete any required pre-matriculation modules, immunizations, or paperwork.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y4-summer-rest">
+                    <label>Rest intentionally before M1; protect sleep, relationships, and hobbies.</label>
+                  </div>
+                  <div class="roadmap-task">
+                    <input type="checkbox" data-task-id="y4-summer-gratitude">
+                    <label>Write a note to your future self about why you’re choosing medicine.</label>
+                  </div>
+                  <span class="pill-tag">Reset before med school</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Activities Explorer -->
+    <section class="panel view" id="view-activities">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>Activities Explorer</span>
+          <span class="panel-pill">UW clubs • clinical • pediatrics</span>
+        </div>
+        <button class="btn btn-sm btn-ghost" id="btnShowCustomForm">
+          ➕ Add custom activity
+        </button>
+      </div>
+      <div class="panel-body">
+        <div class="chips-row">
+          <span class="chip-outline">
+            <strong>How to use:</strong> Search by keyword, pick a type, then tap <strong>“Open site”</strong> to jump straight to the real UW / Seattle page.
+          </span>
+          <span class="chip-outline">
+            <strong>Pro tip:</strong> Star your favorites with <em>“Add to My Plan”</em> so everything lives in one place.
+          </span>
+        </div>
+        <div class="filters-row">
+          <div class="field">
+            <label>Search</label>
+            <input type="text" id="filterSearch" placeholder="MAPS, AED, Seattle Children's, research, pediatrics..." />
+          </div>
+          <div class="field">
+            <label>Type</label>
+            <select id="filterType">
+              <option value="all">Any type</option>
+              <option value="clinical">Clinical</option>
+              <option value="shadowing">Shadowing</option>
+              <option value="nonclinical">Non-clinical service</option>
+              <option value="research">Research</option>
+              <option value="leadership">Leadership</option>
+              <option value="enrichment">Academic enrichment / clubs</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Recommended year</label>
+            <select id="filterYear">
+              <option value="all">Any year</option>
+              <option value="1">Year 1</option>
+              <option value="2">Year 2</option>
+              <option value="3">Year 3</option>
+              <option value="4">Year 4</option>
+            </select>
+          </div>
+          <label class="toggle-chip" id="togglePeds">
+            Pediatrics focus only
+          </label>
+        </div>
+
+        <div class="activities-list" id="activitiesList"></div>
+
+        <div id="customForm" style="display:none; margin-top:10px;">
+          <div class="panel-title" style="margin-bottom:4px;">
+            <span>Custom Activity</span>
+          </div>
+          <div class="chips-row">
+            <span class="muted tiny">Create your own experience (local clinic, Seattle org, UW RSO role, etc.) and add it to your plan.</span>
+          </div>
+          <div class="filters-row">
+            <div class="field">
+              <label>Activity name</label>
+              <input type="text" id="customName" placeholder="Example: Seattle Children’s Art Volunteer" />
+            </div>
+            <div class="field">
+              <label>Type</label>
+              <select id="customType">
+                <option value="clinical">Clinical</option>
+                <option value="shadowing">Shadowing</option>
+                <option value="nonclinical">Non-clinical service</option>
+                <option value="research">Research</option>
+                <option value="leadership">Leadership</option>
+                <option value="enrichment">Academic enrichment</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Recommended year</label>
+              <select id="customYear">
+                <option value="1">Year 1</option>
+                <option value="2">Year 2</option>
+                <option value="3">Year 3</option>
+                <option value="4">Year 4</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Short description</label>
+            <input type="text" id="customDesc" placeholder="Who you help, what you do, how often, why it matters." />
+          </div>
+          <div style="margin-top:6px; display:flex; gap:8px; justify-content:flex-end;">
+            <button class="btn btn-ghost btn-sm" id="btnCancelCustom">Cancel</button>
+            <button class="btn btn-primary btn-sm" id="btnSaveCustom">Save & add to My Plan</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- My Plan -->
+    <section class="panel view" id="view-myplan">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>My Plan</span>
+          <span class="panel-pill">Hand-picked activities + priorities</span>
+        </div>
+        <button class="btn btn-sm btn-ghost" id="btnClearPlan">Clear all</button>
+      </div>
+      <div class="panel-body">
+        <div class="chips-row">
+          <span class="chip-outline"><strong>Balance:</strong> clinical • shadowing • service • research • leadership every year.</span>
+        </div>
+        <div class="myplan-list" id="myPlanList"></div>
+        <div class="empty-state" id="myPlanEmpty">
+          <span>No activities yet. Use the <strong>Activities Explorer</strong> to add UW clubs, clinical work, and pediatrics-focused experiences to your plan.</span>
+          <button class="btn btn-sm btn-primary" data-view-jump="view-activities">Open Explorer</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Essay Idea Bank -->
+    <section class="panel view" id="view-essays">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>Essay Idea Bank</span>
+          <span class="panel-pill">Personal statement • secondaries</span>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="chips-row">
+          <span class="chip-outline">
+            <strong>Goal:</strong> Capture stories now so essays later are easy — not stressful.
+          </span>
+          <span class="chip-outline">
+            <strong>Hint:</strong> Focus on moments with <em>emotion + insight + action</em> (esp. with kids/families).
+          </span>
+        </div>
+        <div class="filters-row">
+          <div class="field">
+            <label>Category</label>
+            <select id="essayCategory">
+              <option value="Personal Statement">Personal Statement (core story)</option>
+              <option value="Most Meaningful">Most Meaningful Experience</option>
+              <option value="Service & Compassion">Service & Compassion</option>
+              <option value="Challenge & Resilience">Challenge & Resilience</option>
+              <option value="Why Pediatrics">Why Pediatrics / Child Health</option>
+              <option value="Why This School">“Why this school?”</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Title / Hook idea</label>
+            <input type="text" id="essayTitle" placeholder="Example: Sticker charts & stethoscopes" />
+          </div>
+          <div class="field">
+            <label>Tags (comma-separated)</label>
+            <input type="text" id="essayTags" placeholder="pediatrics, Seattle, underserved, leadership" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Core idea (3–6 sentences)</label>
+          <textarea id="essayBody" placeholder="Describe the moment, what you felt, what you learned, and how it changed your path toward medicine."></textarea>
+        </div>
+        <div style="margin-top:6px; display:flex; gap:8px; justify-content:flex-end;">
+          <div class="muted tiny" id="essayStatus">Saved locally in this browser.</div>
+          <button class="btn btn-primary btn-sm" id="btnSaveEssay">💾 Save idea</button>
+        </div>
+
+        <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center; gap:8px;">
+          <div class="label-mini">Saved ideas</div>
+          <div class="field" style="max-width:210px;">
+            <label style="font-size:10px;">Filter by category</label>
+            <select id="essayFilter">
+              <option value="all">All categories</option>
+              <option value="Personal Statement">Personal Statement</option>
+              <option value="Most Meaningful">Most Meaningful</option>
+              <option value="Service & Compassion">Service & Compassion</option>
+              <option value="Challenge & Resilience">Challenge & Resilience</option>
+              <option value="Why Pediatrics">Why Pediatrics</option>
+              <option value="Why This School">Why This School</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="essay-list" id="essayList"></div>
+        <div class="empty-state" id="essayEmpty">
+          <span>No ideas yet. After a clinic shift, UW club event, or kids-related experience, drop a quick story here.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Application Readiness -->
+    <section class="panel view" id="view-readiness">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>Application Readiness Dashboard</span>
+          <span class="panel-pill">Track hours • requirements • early assurance</span>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="chips-row">
+          <span class="chip-outline">
+            <strong>Goal:</strong> Be competitive for strong med schools by graduation, with every box clearly checked.
+          </span>
+          <span class="chip-outline">
+            <strong>Strategy:</strong> High GPA, strong MCAT, and a rich pediatric-friendly service story.
+          </span>
+        </div>
+        <div class="readiness-grid" id="readinessGrid"></div>
+
+        <hr style="border:none;border-top:1px solid #1f2937;margin:10px 0 8px 0;">
+
+        <div class="panel-title" style="margin-bottom:4px;">
+          <span>Early Assurance & Special Pathways</span>
+        </div>
+        <p class="muted" style="margin-bottom:4px;">
+          These programs sometimes allow strong undergrads to apply early to med school (often in sophomore or junior year) and secure a conditional acceptance. Always check each school’s current website for exact rules, GPA cutoffs, and deadlines.
+        </p>
+        <div class="early-admit-list">
+          <div class="early-item">
+            <strong>Early Assurance / Conditional Acceptance</strong>
+            <div class="tiny">
+              Look for “early assurance” or “EAP” programs at schools you love. Many require:
+              <ul style="padding-left:14px;margin-top:2px;">
+                <li>High GPA (often ≥3.6–3.8)</li>
+                <li>Strong science coursework completed by Year 2</li>
+                <li>Documented clinical, shadowing & service</li>
+              </ul>
+              By the end of <strong>Year 1</strong>, know which programs exist and what you’d need by the end of Year 2.
+            </div>
+          </div>
+          <div class="early-item">
+            <strong>BS/MD & Combined Programs</strong>
+            <div class="tiny">
+              Some combined undergrad-med pathways are aimed at incoming freshmen; others allow current undergrads to apply. If you are already in your first year at UW, focus more on:
+              <ul style="padding-left:14px;margin-top:2px;">
+                <li>School-specific early assurance</li>
+                <li>Honors programs or special research scholars tracks</li>
+                <li>Pipeline programs serving WA or West Coast students</li>
+              </ul>
+            </div>
+          </div>
+          <div class="early-item">
+            <strong>What to do now</strong>
+            <div class="tiny">
+              <ol style="padding-left:14px;margin-top:2px;">
+                <li>Create a shortlist of target med schools.</li>
+                <li>On each website, find “Early Assurance,” “Special Programs,” or “Pre-Matriculation Programs.”</li>
+                <li>Use this app’s <strong>My Plan</strong> to add any extra requirements (GPA thresholds, specific courses, extra service hours).</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes & Ideas -->
+    <section class="panel view" id="view-notes">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>Notes, Ideas & Reflections</span>
+          <span class="panel-pill">Private journal • auto-saves</span>
+        </div>
+        <span class="tiny muted" id="notesStatus">Saved</span>
+      </div>
+      <div class="panel-body">
+        <p class="muted" style="margin-bottom:4px;">
+          Capture “aha” moments after shadowing, big shifts in why you love pediatrics, and stories you might use later in essays or interviews.
+        </p>
+        <textarea class="notes-area" id="notesArea" placeholder="Example: Today in pediatrics clinic, I saw how the doctor talked to both the child and the parent..."></textarea>
+      </div>
+    </section>
+
+    <!-- RIGHT: summary sidebar -->
+    <section class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>At-a-Glance Dashboard</span>
+          <span class="panel-pill">Live snapshot</span>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="chips-row">
+          <span class="chip-outline">
+            <strong id="chipRoadmapCount">0</strong> roadmap tasks completed
+          </span>
+          <span class="chip-outline">
+            <strong id="chipPlanCount">0</strong> activities in My Plan
+          </span>
+          <span class="chip-outline">
+            <strong id="chipHoursLevel">0%</strong> of core hours target
+          </span>
+        </div>
+
+        <div style="margin:8px 0 6px 0;">
+          <div class="label-mini">Core readiness snapshot</div>
+        </div>
+        <div class="readiness-grid" id="snapshotGrid"></div>
+
+        <hr style="border:none;border-top:1px solid #1f2937;margin:10px 0 8px 0;">
+
+        <div class="panel-title" style="margin-bottom:4px;">
+          <span>Today’s Tiny Wins</span>
+        </div>
+        <div class="early-admit-list">
+          <div class="early-item">
+            <div class="tiny" id="tinyWins">
+              • Check off 1 roadmap box.<br>
+              • Add 1 pediatrics-friendly activity to My Plan.<br>
+              • Log 5 minutes of reflection in Notes.
+            </div>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid #1f2937;margin:10px 0 8px 0;">
+
+        <div class="panel-title" style="margin-top:8px;margin-bottom:4px;">
+          <span>Peds Super-Track Shortlist</span>
+        </div>
+        <p class="muted tiny" style="margin-bottom:4px;">
+          Do these core experiences really well and your pediatrics story will feel cohesive and strong.
+        </p>
+        <div class="shortlist-list" id="pedsShortlist"></div>
+
+        <hr style="border:none;border-top:1px solid #1f2937;margin:10px 0 8px 0;">
+
+        <div class="panel-title" style="margin-bottom:4px;">
+          <span>Trends in Medicine & Pediatrics</span>
+        </div>
+        <p class="muted tiny" style="margin-bottom:4px;">
+          Big themes shaping the future you’re walking into — great hooks for essays and interviews.
+        </p>
+        <div class="early-admit-list">
+          <div class="early-item tiny">
+            <strong>AI & Precision Medicine</strong><br>
+            Smarter tools helping doctors read scans, predict disease risk, and personalize treatments — while raising big questions about equity and ethics.
+          </div>
+          <div class="early-item tiny">
+            <strong>Telehealth & Virtual Care</strong><br>
+            Video visits, remote monitoring, and apps make it easier for families (especially in rural areas) to see pediatricians and manage chronic conditions.
+          </div>
+          <div class="early-item tiny">
+            <strong>Child & Teen Mental Health</strong><br>
+            Huge focus on anxiety, depression, and social media’s impact on teens — with new digital tools and school-based support systems.
+          </div>
+          <div class="early-item tiny">
+            <strong>Vaccines, Infections & Global Child Health</strong><br>
+            Ongoing work on RSV, COVID, and routine vaccines, plus global pushes to improve access to care and protect kids in climate- and conflict-affected regions.
+          </div>
+          <div class="early-item tiny">
+            <strong>Obesity, Nutrition & Lifestyle</strong><br>
+            Rising childhood obesity and blood pressure have pediatricians focusing more on healthy food, movement, and community-level prevention.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // ====== Simple data model ======
+  const STORAGE_KEY = "uwPremedCoachState_v3";
+
+  const DEFAULT_STATE = {
+    roadmapTasks: {},
+    myPlan: [],
+    customActivities: [],
+    readiness: {
+      clinicalHours: 0,
+      shadowingHours: 0,
+      nonclinicalHours: 0,
+      researchHours: 0,
+      leadershipHours: 0
+    },
+    notes: "",
+    essayBank: [],
+    textSize: "m",
+    highContrast: false
+  };
+
+  const activities = [
+    // UW-specific clubs / RSOs (planning + real links)
+    {
+      id: "uw_aed",
+      name: "Alpha Epsilon Delta (AED) – UW Pre-Health Honor Society",
+      type: "enrichment",
+      year: 1,
+      description: "Honor society for pre-health students with physician panels, MCAT prep nights, shadowing programs, and volunteer events.",
+      tags: ["UW Seattle", "pre-health club", "MCAT", "shadowing"],
+      pediatric: false,
+      suggestedHours: "1–2 hrs/week",
+      location: "UW Seattle campus",
+      url: "https://careers.uw.edu/organizations/alpha-epsilon-delta-pre-health-honor-society/"
+    },
+    {
+      id: "uw_amsa",
+      name: "AMSA at UW – American Medical Student Association",
+      type: "enrichment",
+      year: 1,
+      description: "National pre-med organization chapter at UW offering talks, skills workshops, and signature events like the Mock ER.",
+      tags: ["UW Seattle", "pre-med community"],
+      pediatric: false,
+      suggestedHours: "1–2 hrs/week",
+      location: "UW Seattle campus",
+      url: "https://www.amsauw.com/"
+    },
+    {
+      id: "uw_maps",
+      name: "MAPS UW – Minority Association of Pre-Health Students",
+      type: "enrichment",
+      year: 1,
+      description: "Community for underrepresented pre-health students with mentorship, shadowing, and the largest pre-health conference in Seattle.",
+      tags: ["UW Seattle", "equity", "community"],
+      pediatric: false,
+      suggestedHours: "1–2 hrs/week",
+      location: "UW Seattle campus",
+      url: "https://mapsuw.wixsite.com/website"
+    },
+    {
+      id: "uw_bridges",
+      name: "Bridges to Health – Community Outreach",
+      type: "nonclinical",
+      year: 1,
+      description: "Student-led organization within UW Health Sciences focused on community outreach and health education.",
+      tags: ["UW Seattle", "advocacy", "health literacy"],
+      pediatric: false,
+      suggestedHours: "2–3 hrs/week",
+      location: "UW / community",
+      url: "https://sop.washington.edu/student-organizations-committees/"
+    },
+    {
+      id: "uw_sgh",
+      name: "Students for Global Health @ UW",
+      type: "enrichment",
+      year: 1,
+      description: "Public health RSO that builds literacy around global health issues and organizes talks, projects, and collaborations.",
+      tags: ["UW Seattle", "global health", "public health"],
+      pediatric: false,
+      suggestedHours: "1–2 hrs/week",
+      location: "UW Seattle campus",
+      url: "https://huskylink.washington.edu"
+    },
+    {
+      id: "uw_gmb",
+      name: "Global Medical Brigades – UW Chapter",
+      type: "nonclinical",
+      year: 2,
+      description: "Student-run organization that partners with communities abroad through medical brigades and global health projects.",
+      tags: ["UW Seattle", "global health", "service"],
+      pediatric: false,
+      suggestedHours: "Varies by trip/cycle",
+      location: "UW / international",
+      url: "https://huskylink.washington.edu/organization/gmbuw"
+    },
+
+    // Clinical & pediatric opportunities (Seattle area)
+    {
+      id: "act1",
+      name: "Seattle Children’s Hospital – Volunteer Services",
+      type: "clinical",
+      year: 1,
+      description: "Weekly volunteer roles on pediatric floors or regional clinics, supporting patients and families in a world-class children’s hospital.",
+      tags: ["pediatrics", "hospital", "patient contact"],
+      pediatric: true,
+      suggestedHours: "2–3 hrs/week",
+      location: "Seattle Children’s Hospital",
+      url: "https://www.seattlechildrens.org/giving/volunteer/"
+    },
+    {
+      id: "act2",
+      name: "Seattle Children’s – Medical Observations & Shadowing",
+      type: "shadowing",
+      year: 1,
+      description: "Educational shadowing opportunities with pediatric providers at Seattle Children’s (availability and requirements vary).",
+      tags: ["pediatrics", "shadowing", "education"],
+      pediatric: true,
+      suggestedHours: "10–20 hrs total",
+      location: "Seattle Children’s Hospital",
+      url: "https://www.seattlechildrens.org/healthcare-professionals/education/medical-observations-job-shadowing/"
+    },
+    {
+      id: "act3",
+      name: "UW Medicine – Hospital Volunteering",
+      type: "clinical",
+      year: 1,
+      description: "Volunteer at UW Medical Center or Harborview Medical Center to support patients and staff, gaining broad clinical exposure.",
+      tags: ["clinical", "UW Medicine", "patient contact"],
+      pediatric: false,
+      suggestedHours: "3 hrs/week",
+      location: "UW Medical Center / Harborview",
+      url: "https://www.uwmedicine.org/volunteering"
+    },
+    {
+      id: "act4",
+      name: "UW Careers – Clinical Exposure Resource List",
+      type: "clinical",
+      year: 1,
+      description: "Curated list of Seattle and Washington hospitals, clinics, and community sites where students can find clinical volunteering or jobs.",
+      tags: ["UW Seattle", "resource", "clinical exposure"],
+      pediatric: false,
+      suggestedHours: "Planning resource",
+      location: "Online",
+      url: "https://careers.uw.edu/resources/building-clinical-exposure-volunteer-experience/"
+    },
+
+    // Service & tutoring with kids / community
+    {
+      id: "act5",
+      name: "Riverways Education Partnerships – K–12 Tutoring",
+      type: "nonclinical",
+      year: 1,
+      description: "Connects UW students with local schools for tutoring and mentorship — great for working with kids and building a service record.",
+      tags: ["children", "education", "service"],
+      pediatric: true,
+      suggestedHours: "2–3 hrs/week",
+      location: "Seattle-area schools",
+      url: "https://www.washington.edu/populationhealth/get-involved/volunteer/"
+    },
+    {
+      id: "act6",
+      name: "Community Engagement & Leadership Education (CELE) Center",
+      type: "nonclinical",
+      year: 1,
+      description: "Umbrella for community-engaged learning and volunteering; good hub to find long-term service roles in Seattle.",
+      tags: ["service", "community", "UW Seattle"],
+      pediatric: false,
+      suggestedHours: "2–4 hrs/week",
+      location: "UW Seattle / Seattle community",
+      url: "https://cele.uw.edu/"
+    },
+
+    // Research
+    {
+      id: "act7",
+      name: "Seattle Children’s Research – Training & Student Programs",
+      type: "research",
+      year: 2,
+      description: "Research training programs that introduce students to lab skills, pediatrics-focused projects, and child health research.",
+      tags: ["research", "pediatrics", "lab"],
+      pediatric: true,
+      suggestedHours: "Summer/part-time program",
+      location: "Seattle Children’s Research Institute",
+      url: "https://www.seattlechildrens.org/research/centers-programs/science-education-department/high-school-training-programs/"
+    },
+    {
+      id: "act8",
+      name: "UW School of Medicine – Research Volunteers",
+      type: "research",
+      year: 2,
+      description: "Central information hub for volunteering in research at the UW School of Medicine — a starting point to connect with labs.",
+      tags: ["UW Medicine", "research", "volunteer"],
+      pediatric: false,
+      suggestedHours: "5–10 hrs/week",
+      location: "UW Medicine",
+      url: "https://research-grad-ed.uwmedicine.org/community/volunteers/"
+    },
+
+    // General pre-med structure
+    {
+      id: "act9",
+      name: "Pre-Med / Pre-Health Club Member (any campus RSO)",
+      type: "enrichment",
+      year: 1,
+      description: "Attend meetings, panels, and workshops; meet upper-class mentors and learn about med-school timelines.",
+      tags: ["pre-med", "networking"],
+      pediatric: false,
+      suggestedHours: "1–2 hrs/week",
+      location: "Campus",
+      url: "https://huskylink.washington.edu"
+    },
+    {
+      id: "act10",
+      name: "Leadership: Pre-Med Club Officer / Coordinator",
+      type: "leadership",
+      year: 2,
+      description: "Organize events, manage volunteers, or run outreach for a pre-med or service organization.",
+      tags: ["leadership", "organization", "mentoring"],
+      pediatric: false,
+      suggestedHours: "3–5 hrs/week",
+      location: "Campus",
+      url: "https://huskylink.washington.edu"
+    },
+    {
+      id: "act11",
+      name: "Scribe in Primary Care or Pediatrics (various clinics)",
+      type: "clinical",
+      year: 2,
+      description: "Paid or volunteer scribe role documenting visits and histories, ideally in family med or pediatrics. Search for scribe positions near Seattle.",
+      tags: ["scribe", "documentation", "primary care"],
+      pediatric: true,
+      suggestedHours: "8–16 hrs/week (summer or gap term)",
+      location: "Clinic / hospital",
+      url: "https://www.indeed.com/q-medical-scribe-l-Seattle,-WA-jobs.html"
+    },
+    {
+      id: "act12",
+      name: "MCAT Prep Plan & Study Group",
+      type: "enrichment",
+      year: 3,
+      description: "Structured schedule with weekly goals, practice questions, and group reviews (can be informal or through a UW org).",
+      tags: ["MCAT", "study skills"],
+      pediatric: false,
+      suggestedHours: "8–12 hrs/week during prep",
+      location: "Anywhere",
+      url: "https://students-residents.aamc.org/prepare-mcat-exam/prepare-mcat-exam"
+    }
+  ];
+
+  const pedsSuperShortlistIds = [
+    "act1",   // Seattle Children’s Hospital – Volunteer
+    "act2",   // Seattle Children’s – Shadowing
+    "act5",   // Riverways tutoring with kids
+    "act7",   // Seattle Children’s research / training
+    "act11",  // Scribing in primary care / pediatrics
+    "uw_maps",// MAPS UW (community & equity)
+    "uw_aed", // AED pre-health honor society
+    "uw_amsa",// AMSA at UW
+    "act3",   // UW Medicine Hospital Volunteering
+    "act8"    // UW School of Medicine research volunteers
+  ];
+
+
+  const readinessConfig = [
+    {
+      id: "clinicalHours",
+      label: "Clinical Experience",
+      target: 150,
+      hint: "Hospitals, clinics, scribing, direct patient contact.",
+      extra: "80–200+ hours is common for strong applicants."
+    },
+    {
+      id: "shadowingHours",
+      label: "Physician Shadowing",
+      target: 50,
+      hint: "Multiple specialties with at least some pediatrics.",
+      extra: "Aim for 40–80 hours across several doctors."
+    },
+    {
+      id: "nonclinicalHours",
+      label: "Non-Clinical Service",
+      target: 150,
+      hint: "Tutoring, shelters, community orgs, especially underserved groups.",
+      extra: "Long-term, meaningful service is key."
+    },
+    {
+      id: "researchHours",
+      label: "Research",
+      target: 250,
+      hint: "Lab, public health, or educational research (pediatrics is a plus).",
+      extra: "Depth matters more than pure hours."
+    },
+    {
+      id: "leadershipHours",
+      label: "Leadership & Teaching",
+      target: 100,
+      hint: "Club officer roles, mentoring, TA, or project leadership.",
+      extra: "Look for impact you can clearly describe."
+    }
+  ];
+
+  let state = loadState();
+  let pedsSuperTrack = false;
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return JSON.parse(JSON.stringify(DEFAULT_STATE));
+      const parsed = JSON.parse(raw);
+      return {
+        ...JSON.parse(JSON.stringify(DEFAULT_STATE)),
+        ...parsed,
+        readiness: { ...DEFAULT_STATE.readiness, ...(parsed.readiness || {}) },
+        essayBank: parsed.essayBank || []
+      };
+    } catch (e) {
+      console.warn("Failed to load state, using defaults", e);
+      return JSON.parse(JSON.stringify(DEFAULT_STATE));
+    }
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+      console.warn("Failed to save state", e);
+    }
+  }
+
+  // ====== Navigation ======
+  const navTabs = document.getElementById("navTabs");
+  const views = document.querySelectorAll(".view");
+  navTabs.addEventListener("click", (e) => {
+    const btn = e.target.closest(".nav-tab");
+    if (!btn) return;
+    const viewId = btn.dataset.view;
+    if (!viewId) return;
+
+    document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
+    btn.classList.add("active");
+    views.forEach(v => v.classList.remove("active"));
+    const view = document.getElementById(viewId);
+    if (view) view.classList.add("active");
+  });
+
+  document.addEventListener("click", (e) => {
+    const jump = e.target.closest("[data-view-jump]");
+    if (!jump) return;
+    const targetView = jump.dataset.viewJump;
+    if (!targetView) return;
+    document.querySelectorAll(".nav-tab").forEach(t => {
+      t.classList.toggle("active", t.dataset.view === targetView);
+    });
+    views.forEach(v => v.classList.remove("active"));
+    const view = document.getElementById(targetView);
+    if (view) view.classList.add("active");
+  });
+
+  // ====== Roadmap checkboxes & progress ======
+  const roadmapCheckboxes = document.querySelectorAll("[data-task-id]");
+  roadmapCheckboxes.forEach(cb => {
+    const id = cb.dataset.taskId;
+    if (state.roadmapTasks[id]) cb.checked = true;
+    cb.addEventListener("change", () => {
+      state.roadmapTasks[id] = cb.checked;
+      saveState();
+      updateRoadmapProgress();
+      updateSnapshot();
+    });
+  });
+
+  function updateRoadmapProgress() {
+    const yearCounts = {1:{done:0,total:0},2:{done:0,total:0},3:{done:0,total:0},4:{done:0,total:0}};
+    roadmapCheckboxes.forEach(cb => {
+      const id = cb.dataset.taskId || "";
+      const match = id.match(/^y(\d)-/);
+      const year = match ? parseInt(match[1],10) : null;
+      if (!yearCounts[year]) return;
+      yearCounts[year].total++;
+      if (cb.checked) yearCounts[year].done++;
+    });
+
+    let totalDone = 0, totalTasks = 0;
+    Object.keys(yearCounts).forEach(y => {
+      const {done,total} = yearCounts[y];
+      totalDone += done;
+      totalTasks += total;
+      const bar = document.querySelector(`[data-year-progress="${y}"]`);
+      if (bar) {
+        const pct = total ? Math.round((done/total)*100) : 0;
+        bar.style.width = pct + "%";
+      }
+    });
+
+    const summary = document.getElementById("roadmapSummary");
+    if (summary) {
+      summary.textContent = totalTasks
+        ? `${totalDone}/${totalTasks} roadmap tasks complete`
+        : "No tasks?";
+    }
+
+    const chipRoadmap = document.getElementById("chipRoadmapCount");
+    if (chipRoadmap) chipRoadmap.textContent = totalDone.toString();
+  }
+
+  // ====== Activities Explorer ======
+  const activitiesListEl = document.getElementById("activitiesList");
+  const filterSearch = document.getElementById("filterSearch");
+  const filterType = document.getElementById("filterType");
+  const filterYear = document.getElementById("filterYear");
+  const togglePeds = document.getElementById("togglePeds");
+  const customForm = document.getElementById("customForm");
+  const btnShowCustomForm = document.getElementById("btnShowCustomForm");
+  const btnCancelCustom = document.getElementById("btnCancelCustom");
+  const btnSaveCustom = document.getElementById("btnSaveCustom");
+  const customName = document.getElementById("customName");
+  const customType = document.getElementById("customType");
+  const customYear = document.getElementById("customYear");
+  const customDesc = document.getElementById("customDesc");
+  const pedsTrackToggle = document.getElementById("pedsTrackToggle");
+
+  let pedOnly = false;
+
+  togglePeds.addEventListener("click", () => {
+    pedOnly = !pedOnly;
+    togglePeds.classList.toggle("active", pedOnly);
+    renderActivities();
+  });
+
+  function setPedsSuperTrack(on) {
+    pedsSuperTrack = on;
+    if (pedsTrackToggle) {
+      pedsTrackToggle.classList.toggle("active", on);
+      const strong = pedsTrackToggle.querySelector("strong");
+      if (strong) strong.textContent = on ? "On" : "Off";
+    }
+    renderActivities();
+    updateTinyWins();
+    renderPedsShortlist();
+  }
+
+  if (pedsTrackToggle) {
+    pedsTrackToggle.addEventListener("click", () => {
+      setPedsSuperTrack(!pedsSuperTrack);
+    });
+  }
+
+  filterSearch.addEventListener("input", renderActivities);
+  filterType.addEventListener("change", renderActivities);
+  filterYear.addEventListener("change", renderActivities);
+
+  btnShowCustomForm.addEventListener("click", () => {
+    customForm.style.display = customForm.style.display === "none" ? "block" : "none";
+  });
+
+  btnCancelCustom.addEventListener("click", () => {
+    customForm.style.display = "none";
+  });
+
+  btnSaveCustom.addEventListener("click", () => {
+    const name = customName.value.trim();
+    const desc = customDesc.value.trim();
+    if (!name) {
+      alert("Give your custom activity a name!");
+      return;
+    }
+    const newId = "custom_" + Date.now();
+    const act = {
+      id: newId,
+      name,
+      type: customType.value,
+      year: parseInt(customYear.value,10),
+      description: desc || "Custom experience you created.",
+      tags: ["custom"],
+      pediatric: true,
+      suggestedHours: "",
+      location: "Custom",
+      url: ""
+    };
+    state.customActivities.push(act);
+    state.myPlan.push(newId);
+    saveState();
+    customName.value = "";
+    customDesc.value = "";
+    customForm.style.display = "none";
+    renderActivities();
+    renderMyPlan();
+  });
+
+  function getAllActivities() {
+    return [...activities, ...state.customActivities];
+  }
+
+  function renderActivities() {
+    const search = filterSearch.value.trim().toLowerCase();
+    const type = filterType.value;
+    const year = filterYear.value;
+
+    const all = getAllActivities();
+    const filtered = all.filter(act => {
+      if (type !== "all" && act.type !== type) return false;
+      if (year !== "all" && String(act.year) !== year) return false;
+
+      const pedsFilter = pedOnly || pedsSuperTrack;
+      if (pedsFilter && !act.pediatric) return false;
+
+      if (search) {
+        const text = (act.name + " " + (act.description || "") + " " + (act.tags || []).join(" ")).toLowerCase();
+        if (!text.includes(search)) return false;
+      }
+      return true;
+    });
+
+    activitiesListEl.innerHTML = "";
+    if (!filtered.length) {
+      activitiesListEl.innerHTML = `
+        <div class="empty-state">
+          <span>No matches. Try a different type or turn off pediatrics-only / Super-Track.</span>
+          <button class="btn btn-sm btn-ghost" id="btnResetFilters">Reset filters</button>
+        </div>
+      `;
+      const reset = document.getElementById("btnResetFilters");
+      if (reset) {
+        reset.addEventListener("click", () => {
+          filterSearch.value = "";
+          filterType.value = "all";
+          filterYear.value = "all";
+          pedOnly = false;
+          pedsSuperTrack = false;
+          togglePeds.classList.remove("active");
+          if (pedsTrackToggle) {
+            pedsTrackToggle.classList.remove("active");
+            const strong = pedsTrackToggle.querySelector("strong");
+            if (strong) strong.textContent = "Off";
+          }
+          renderActivities();
+          updateTinyWins();
+        });
+      }
+      return;
+    }
+
+    filtered.forEach(act => {
+      const highlight = pedsSuperTrack && act.pediatric;
+      const wrapper = document.createElement("div");
+      wrapper.className = "activity-card" + (highlight ? " peds-highlight" : "");
+      wrapper.innerHTML = `
+        <div class="activity-main">
+          <div class="activity-title">
+            ${act.name}
+            <span class="activity-type">${formatActivityType(act.type)}</span>
+          </div>
+          <div class="activity-body">${act.description || ""}</div>
+          <div class="activity-meta">
+            ${act.pediatric ? '<span class="activity-tag pink">Pediatrics-friendly</span>' : ""}
+            ${act.tags ? act.tags.map(tag => `<span class="activity-tag">${tag}</span>`).join("") : ""}
+          </div>
+        </div>
+        <div class="activity-side">
+          <div class="activity-year">
+            Recommended: Year ${act.year}
+          </div>
+          <div class="tiny">${act.suggestedHours ? act.suggestedHours : ""}</div>
+          <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
+            ${act.url ? `<a class="btn btn-link" href="${act.url}" target="_blank" rel="noopener noreferrer">🌐 Open site</a>` : ""}
+            <button class="btn btn-sm btn-primary" data-add-plan="${act.id}">
+              ⭐ Add to My Plan
+            </button>
+          </div>
+        </div>
+      `;
+      activitiesListEl.appendChild(wrapper);
+    });
+  }
+
+  function formatActivityType(type) {
+    switch (type) {
+      case "clinical": return "Clinical";
+      case "nonclinical": return "Non-Clinical Service";
+      case "shadowing": return "Shadowing";
+      case "research": return "Research";
+      case "leadership": return "Leadership";
+      case "enrichment": return "Enrichment / Club";
+      default: return type;
+    }
+  }
+
+  activitiesListEl.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-add-plan]");
+    if (!btn) return;
+    const id = btn.dataset.addPlan;
+    if (!state.myPlan.includes(id)) {
+      state.myPlan.push(id);
+      saveState();
+      renderMyPlan();
+    }
+  });
+
+  // ====== My Plan ======
+  const myPlanList = document.getElementById("myPlanList");
+  const myPlanEmpty = document.getElementById("myPlanEmpty");
+  const btnClearPlan = document.getElementById("btnClearPlan");
+
+  btnClearPlan.addEventListener("click", () => {
+    if (!confirm("Clear all items in My Plan?")) return;
+    state.myPlan = [];
+    saveState();
+    renderMyPlan();
+  });
+
+  function renderMyPlan() {
+    const allActivities = getAllActivities();
+    const selected = state.myPlan
+      .map(id => allActivities.find(a => a.id === id))
+      .filter(Boolean);
+
+    myPlanList.innerHTML = "";
+    if (!selected.length) {
+      myPlanEmpty.style.display = "flex";
+    } else {
+      myPlanEmpty.style.display = "flex";
+      myPlanEmpty.style.display = "none";
+      selected.forEach(act => {
+        const div = document.createElement("div");
+        div.className = "myplan-item";
+        div.innerHTML = `
+          <div class="myplan-main">
+            <div class="myplan-title">${act.name}</div>
+            <div class="muted tiny">${formatActivityType(act.type)} • Year ${act.year} • ${act.location || ""}</div>
+            <div class="myplan-tags">
+              ${act.pediatric ? "<span>Pediatrics-friendly</span>" : ""}
+              ${(act.tags||[]).slice(0,3).map(t => `<span>${t}</span>`).join("")}
+            </div>
+          </div>
+          <div class="myplan-actions">
+            ${act.url ? `<a class="btn btn-link" href="${act.url}" target="_blank" rel="noopener noreferrer">🌐 Open site</a>` : ""}
+            <button class="btn btn-sm btn-ghost" data-remove-plan="${act.id}">Remove</button>
+          </div>
+        `;
+        myPlanList.appendChild(div);
+      });
+    }
+
+    const chipPlan = document.getElementById("chipPlanCount");
+    if (chipPlan) chipPlan.textContent = selected.length.toString();
+  }
+
+  myPlanList.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-remove-plan]");
+    if (!btn) return;
+    const id = btn.dataset.removePlan;
+    state.myPlan = state.myPlan.filter(x => x !== id);
+    saveState();
+    renderMyPlan();
+  });
+
+  // ====== Readiness Dashboard ======
+  const readinessGrid = document.getElementById("readinessGrid");
+  const snapshotGrid = document.getElementById("snapshotGrid");
+
+  function renderReadiness() {
+    readinessGrid.innerHTML = "";
+    readinessConfig.forEach(cfg => {
+      const current = state.readiness[cfg.id] || 0;
+      const pct = Math.min(100, Math.round((current / cfg.target) * 100));
+      const status =
+        pct >= 100 ? "on-track" :
+        pct >= 50  ? "on-track" : "behind";
+      const statusLabel =
+        pct >= 100 ? "Goal met" :
+        pct >= 50  ? "On track" : "Needs attention";
+      const card = document.createElement("div");
+      card.className = "readiness-card";
+      card.innerHTML = `
+        <div class="readiness-title">
+          <span>${cfg.label}</span>
+          <span class="readiness-target">Target: ${cfg.target}+ hrs</span>
+        </div>
+        <div class="readiness-bar">
+          <span style="width:${pct}%"></span>
+        </div>
+        <div class="readiness-row">
+          <div>
+            <span class="muted">Logged:</span>
+            <strong> ${current} hrs</strong>
+          </div>
+          <span class="pill-status ${status}">${statusLabel}</span>
+        </div>
+        <div class="readiness-row">
+          <span class="muted tiny">${cfg.hint}</span>
+          <input type="number" min="0" step="1" value="${current}" data-readiness-input="${cfg.id}" />
+        </div>
+        <div class="tiny muted">${cfg.extra}</div>
+      `;
+      readinessGrid.appendChild(card);
+    });
+
+    snapshotGrid.innerHTML = "";
+    readinessConfig.slice(0,3).forEach(cfg => {
+      const current = state.readiness[cfg.id] || 0;
+      const pct = Math.min(100, Math.round((current / cfg.target) * 100));
+      const snapshotCard = document.createElement("div");
+      snapshotCard.className = "readiness-card";
+      snapshotCard.innerHTML = `
+        <div class="readiness-title">
+          <span class="tiny">${cfg.label}</span>
+          <span class="tiny">${pct}%</span>
+        </div>
+        <div class="readiness-bar">
+          <span style="width:${pct}%"></span>
+        </div>
+        <div class="tiny muted">${current} / ${cfg.target}+ hrs</div>
+      `;
+      snapshotGrid.appendChild(snapshotCard);
+    });
+
+    updateHoursChip();
+  }
+
+  readinessGrid.addEventListener("input", (e) => {
+    const input = e.target.closest("[data-readiness-input]");
+    if (!input) return;
+    const id = input.dataset.readinessInput;
+    const val = Math.max(0, parseInt(input.value || "0", 10));
+    state.readiness[id] = val;
+    saveState();
+    renderReadiness();
+  });
+
+  function updateHoursChip() {
+    let totalPct = 0;
+    readinessConfig.forEach(cfg => {
+      const current = state.readiness[cfg.id] || 0;
+      const pct = Math.min(100, (current / cfg.target) * 100);
+      totalPct += pct;
+    });
+    const avg = Math.round(totalPct / readinessConfig.length);
+    const chipHours = document.getElementById("chipHoursLevel");
+    if (chipHours) chipHours.textContent = avg + "%";
+  }
+
+  // ====== Notes ======
+  const notesArea = document.getElementById("notesArea");
+  const notesStatus = document.getElementById("notesStatus");
+
+  function initNotes() {
+    notesArea.value = state.notes || "";
+    notesArea.addEventListener("input", () => {
+      state.notes = notesArea.value;
+      notesStatus.textContent = "Saving...";
+      saveState();
+      setTimeout(() => {
+        notesStatus.textContent = "Saved";
+      }, 300);
+    });
+  }
+
+  // ====== Essay Idea Bank ======
+  const essayCategory = document.getElementById("essayCategory");
+  const essayTitle = document.getElementById("essayTitle");
+  const essayTags = document.getElementById("essayTags");
+  const essayBody = document.getElementById("essayBody");
+  const btnSaveEssay = document.getElementById("btnSaveEssay");
+  const essayFilter = document.getElementById("essayFilter");
+  const essayList = document.getElementById("essayList");
+  const essayEmpty = document.getElementById("essayEmpty");
+  const essayStatus = document.getElementById("essayStatus");
+
+  btnSaveEssay.addEventListener("click", () => {
+    const category = essayCategory.value;
+    const title = essayTitle.value.trim() || "(Untitled idea)";
+    const body = essayBody.value.trim();
+    const tagsRaw = essayTags.value.trim();
+
+    if (!body) {
+      alert("Write at least a few sentences for your idea.");
+      return;
+    }
+
+    const tags = tagsRaw
+      ? tagsRaw.split(",").map(t => t.trim()).filter(Boolean)
+      : [];
+
+    const idea = {
+      id: "essay_" + Date.now(),
+      category,
+      title,
+      body,
+      tags,
+      createdAt: new Date().toISOString()
+    };
+
+    state.essayBank.push(idea);
+    saveState();
+    essayBody.value = "";
+    essayTitle.value = "";
+    essayTags.value = "";
+    essayStatus.textContent = "Saved!";
+    setTimeout(() => { essayStatus.textContent = "Saved locally in this browser."; }, 800);
+    renderEssayBank();
+  });
+
+  essayFilter.addEventListener("change", renderEssayBank);
+
+  function renderEssayBank() {
+    const filter = essayFilter.value;
+    const ideas = [...state.essayBank].sort((a,b) => {
+      return (b.createdAt || "").localeCompare(a.createdAt || "");
+    });
+
+    const filtered = ideas.filter(i => filter === "all" || i.category === filter);
+
+    essayList.innerHTML = "";
+    if (!filtered.length) {
+      essayEmpty.style.display = "flex";
+      return;
+    }
+    essayEmpty.style.display = "none";
+
+    filtered.forEach(idea => {
+      const div = document.createElement("div");
+      div.className = "essay-card";
+      const preview = idea.body.length > 260
+        ? idea.body.slice(0, 260) + "…"
+        : idea.body;
+      div.innerHTML = `
+        <div class="essay-header">
+          <div>
+            <div class="essay-title">${idea.title}</div>
+            <span class="essay-category-pill">${idea.category}</span>
+          </div>
+          <button class="btn btn-sm btn-ghost" data-del-essay="${idea.id}">Remove</button>
+        </div>
+        <div class="essay-body-preview">${preview}</div>
+        <div class="essay-tags">
+          ${(idea.tags || []).map(t => `<span>${t}</span>`).join("")}
+        </div>
+      `;
+      essayList.appendChild(div);
+    });
+  }
+
+  essayList.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-del-essay]");
+    if (!btn) return;
+    const id = btn.dataset.delEssay;
+    state.essayBank = state.essayBank.filter(i => i.id !== id);
+    saveState();
+    renderEssayBank();
+  });
+
+  // ====== Tiny wins ======
+  function updateTinyWins() {
+    const baseSets = [
+      [
+        "Check off 1 roadmap box.",
+        "Message a potential physician to shadow.",
+        "Add 1 activity to My Plan."
+      ],
+      [
+        "Enter updated clinical hours in the dashboard.",
+        "Write a 3-sentence reflection in Notes.",
+        "Log one essay idea about a meaningful interaction."
+      ],
+      [
+        "Skim your roadmap for this quarter.",
+        "Send a thank-you note to a mentor or TA.",
+        "Review your activities for balance: clinical, service, research, leadership."
+      ]
+    ];
+
+    const pedsSets = [
+      [
+        "Filter Activities Explorer by pediatrics and star one new option.",
+        "Write a short note about why working with kids energizes you.",
+        "Look up a pediatrics-related trend and summarize it in Notes."
+      ],
+      [
+        "Add one Seattle Children’s, tutoring, or kid-focused role to My Plan.",
+        "Update your hours after a pediatrics-related shift.",
+        "Draft a ‘Why Pediatrics’ essay idea in the Essay Bank."
+      ]
+    ];
+
+    const options = pedsSuperTrack ? pedsSets : baseSets;
+    const set = options[Math.floor(Math.random() * options.length)];
+    const tinyWins = document.getElementById("tinyWins");
+    if (tinyWins) {
+      tinyWins.innerHTML = "• " + set.join("<br>• ");
+    }
+  
+  function renderPedsShortlist() {
+    const pedsShortlistEl = document.getElementById("pedsShortlist");
+    if (!pedsShortlistEl) return;
+    const all = getAllActivities();
+    const subset = pedsSuperShortlistIds
+      .map(id => all.find(a => a && a.id === id))
+      .filter(Boolean);
+
+    pedsShortlistEl.innerHTML = "";
+    subset.forEach((act, index) => {
+      const div = document.createElement("div");
+      div.className = "shortlist-card";
+      const linkHtml = act.url
+        ? '<a class="btn btn-link" href="' + act.url + '" target="_blank" rel="noopener noreferrer">🌐 Open</a>'
+        : '';
+      div.innerHTML = `
+        <div class="shortlist-main">
+          <div class="shortlist-title">${index + 1}. ${act.name}</div>
+          <div class="tiny muted">${act.location || ""} • ${formatActivityType(act.type)} • Year ${act.year}</div>
+          <div class="shortlist-tags">
+            ${act.pediatric ? '<span>Peds core</span>' : ''}
+            ${(act.tags || []).slice(0, 2).map(t => '<span>' + t + '</span>').join('')}
+          </div>
+        </div>
+        <div class="shortlist-meta">
+          ${act.suggestedHours ? act.suggestedHours + '<br>' : ''}
+          ${linkHtml}
+        </div>
+      `;
+      pedsShortlistEl.appendChild(div);
+    });
+  }
+}
+
+  // ====== Snapshot ======
+  function updateSnapshot() {
+    renderReadiness();
+  }
+
+  // ====== Display & accessibility controls ======
+  const textSizeButtons = document.querySelectorAll("[data-text-size-btn]");
+  const highContrastToggle = document.getElementById("highContrastToggle");
+
+  function applyTextSize(size) {
+    const allowed = ["s", "m", "l"];
+    if (!allowed.includes(size)) size = "m";
+    document.body.classList.remove("text-size-s", "text-size-m", "text-size-l");
+    document.body.classList.add("text-size-" + size);
+    state.textSize = size;
+    saveState();
+    textSizeButtons.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.textSizeBtn === size);
+    });
+  }
+
+  function applyHighContrast(on) {
+    const isOn = !!on;
+    document.body.classList.toggle("high-contrast", isOn);
+    state.highContrast = isOn;
+    saveState();
+    if (highContrastToggle) {
+      highContrastToggle.classList.toggle("active", isOn);
+      const strong = highContrastToggle.querySelector("strong");
+      if (strong) strong.textContent = isOn ? "On" : "Off";
+    }
+  }
+
+  if (textSizeButtons.length) {
+    textSizeButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        applyTextSize(btn.dataset.textSizeBtn);
+      });
+    });
+  }
+
+  if (highContrastToggle) {
+    highContrastToggle.addEventListener("click", () => {
+      const on = !document.body.classList.contains("high-contrast");
+      applyHighContrast(on);
+    });
+  }
+
+  // ====== Init ======
+  function init() {
+    applyTextSize(state.textSize || "m");
+    applyHighContrast(!!state.highContrast);
+    updateRoadmapProgress();
+    renderActivities();
+    renderMyPlan();
+    renderReadiness();
+    initNotes();
+    renderEssayBank();
+    updateTinyWins();
+    renderPedsShortlist();
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
